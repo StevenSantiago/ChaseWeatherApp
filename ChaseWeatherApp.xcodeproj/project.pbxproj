@@ -9,13 +9,15 @@
 /* Begin PBXBuildFile section */
 		073941B829D5481F002C7658 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941B729D5481F002C7658 /* AppDelegate.swift */; };
 		073941BA29D5481F002C7658 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941B929D5481F002C7658 /* SceneDelegate.swift */; };
-		073941BC29D5481F002C7658 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941BB29D5481F002C7658 /* ViewController.swift */; };
+		073941BC29D5481F002C7658 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941BB29D5481F002C7658 /* HomeVC.swift */; };
 		073941BF29D5481F002C7658 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 073941BD29D5481F002C7658 /* Main.storyboard */; };
 		073941C129D54821002C7658 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 073941C029D54821002C7658 /* Assets.xcassets */; };
 		073941C429D54821002C7658 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 073941C229D54821002C7658 /* LaunchScreen.storyboard */; };
 		073941CF29D54821002C7658 /* ChaseWeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941CE29D54821002C7658 /* ChaseWeatherAppTests.swift */; };
 		073941D929D54821002C7658 /* ChaseWeatherAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941D829D54821002C7658 /* ChaseWeatherAppUITests.swift */; };
 		073941DB29D54821002C7658 /* ChaseWeatherAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941DA29D54821002C7658 /* ChaseWeatherAppUITestsLaunchTests.swift */; };
+		073941E829D54966002C7658 /* WeatherTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941E729D54966002C7658 /* WeatherTabController.swift */; };
+		073941EA29D54A20002C7658 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941E929D54A20002C7658 /* SettingsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +41,7 @@
 		073941B429D5481F002C7658 /* ChaseWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChaseWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		073941B729D5481F002C7658 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		073941B929D5481F002C7658 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		073941BB29D5481F002C7658 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		073941BB29D5481F002C7658 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		073941BE29D5481F002C7658 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		073941C029D54821002C7658 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		073941C329D54821002C7658 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +51,8 @@
 		073941D429D54821002C7658 /* ChaseWeatherAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChaseWeatherAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		073941D829D54821002C7658 /* ChaseWeatherAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaseWeatherAppUITests.swift; sourceTree = "<group>"; };
 		073941DA29D54821002C7658 /* ChaseWeatherAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaseWeatherAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		073941E729D54966002C7658 /* WeatherTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTabController.swift; sourceTree = "<group>"; };
+		073941E929D54A20002C7658 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,11 +105,13 @@
 			children = (
 				073941B729D5481F002C7658 /* AppDelegate.swift */,
 				073941B929D5481F002C7658 /* SceneDelegate.swift */,
-				073941BB29D5481F002C7658 /* ViewController.swift */,
+				073941BB29D5481F002C7658 /* HomeVC.swift */,
 				073941BD29D5481F002C7658 /* Main.storyboard */,
 				073941C029D54821002C7658 /* Assets.xcassets */,
 				073941C229D54821002C7658 /* LaunchScreen.storyboard */,
 				073941C529D54821002C7658 /* Info.plist */,
+				073941E729D54966002C7658 /* WeatherTabController.swift */,
+				073941E929D54A20002C7658 /* SettingsVC.swift */,
 			);
 			path = ChaseWeatherApp;
 			sourceTree = "<group>";
@@ -258,9 +264,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				073941BC29D5481F002C7658 /* ViewController.swift in Sources */,
+				073941E829D54966002C7658 /* WeatherTabController.swift in Sources */,
+				073941BC29D5481F002C7658 /* HomeVC.swift in Sources */,
 				073941B829D5481F002C7658 /* AppDelegate.swift in Sources */,
 				073941BA29D5481F002C7658 /* SceneDelegate.swift in Sources */,
+				073941EA29D54A20002C7658 /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
