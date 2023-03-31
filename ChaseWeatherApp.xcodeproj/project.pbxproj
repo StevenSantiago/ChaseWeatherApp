@@ -18,6 +18,7 @@
 		073941DB29D54821002C7658 /* ChaseWeatherAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941DA29D54821002C7658 /* ChaseWeatherAppUITestsLaunchTests.swift */; };
 		073941E829D54966002C7658 /* WeatherTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941E729D54966002C7658 /* WeatherTabController.swift */; };
 		073941EA29D54A20002C7658 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941E929D54A20002C7658 /* SettingsVC.swift */; };
+		073941EC29D55291002C7658 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073941EB29D55291002C7658 /* WeatherService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		073941DA29D54821002C7658 /* ChaseWeatherAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaseWeatherAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		073941E729D54966002C7658 /* WeatherTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTabController.swift; sourceTree = "<group>"; };
 		073941E929D54A20002C7658 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		073941EB29D55291002C7658 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				073941C529D54821002C7658 /* Info.plist */,
 				073941E729D54966002C7658 /* WeatherTabController.swift */,
 				073941E929D54A20002C7658 /* SettingsVC.swift */,
+				073941EB29D55291002C7658 /* WeatherService.swift */,
 			);
 			path = ChaseWeatherApp;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				073941BC29D5481F002C7658 /* HomeVC.swift in Sources */,
 				073941B829D5481F002C7658 /* AppDelegate.swift in Sources */,
 				073941BA29D5481F002C7658 /* SceneDelegate.swift in Sources */,
+				073941EC29D55291002C7658 /* WeatherService.swift in Sources */,
 				073941EA29D54A20002C7658 /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
