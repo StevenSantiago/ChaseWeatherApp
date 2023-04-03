@@ -14,7 +14,7 @@ class WeatherTabController: UITabBarController {
     }
     
     func setUpTabController() {
-        let homeVC = HomeVC(weatherService: WeatherService())
+        let homeVC = HomeVC(weatherViewModel: WeatherViewModel())
         
         let homeTabBar = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         homeVC.tabBarItem = homeTabBar

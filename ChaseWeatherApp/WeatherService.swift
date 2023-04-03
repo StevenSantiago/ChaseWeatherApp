@@ -5,75 +5,15 @@
 //  Created by Steven Santiago on 3/29/23.
 //
 
+import CoreLocation
 import UIKit
 
-//Only adding basic fields, no need to add other weather responses for now. Could be added as features later
-struct WeatherResponse: Decodable {
-    let coord: Coord?
-    let weather: [Weather]
-    let main: Main
-    let dt: TimeInterval
-    let name: String
-
-    struct Coord: Decodable {
-        let lon: Double
-        let lat: Double
-    }
-
-    struct Weather: Decodable {
-        let id: Int
-        let main: String
-        let description: String
-        let icon: String
-    }
-
-    struct Main: Decodable {
-        let temp: Double
-        let feelsLike: Double
-        let tempMin: Double
-        let tempMax: Double
-        let humidity: Int
-
-        enum CodingKeys: String, CodingKey {
-            case temp
-            case feelsLike = "feels_like"
-            case tempMin = "temp_min"
-            case tempMax = "temp_max"
-            case humidity
-        }
-    }
-
-}
-
-
-    //Not supporting other languages besides english so not retriving local names
-struct City: Decodable {
-    let name: String
-    let lat: Double
-    let lon: Double
-    let country: String
-    let state: String?
-}
-//
-struct Coordinates {
-    let longitude: Double
-    let latitude: Double
-}
-
-enum WeatherError: Error {
-    case generic
-    case invalidURL
-    case parsingError
-    case noData
-}
-
 protocol WeatherServiceProtocol {
-    func getWeatherByCoordinates(_ coordinates: Coordinates, completion: @escaping ((Result<WeatherResponse,WeatherError>) -> Void))
+    func getWeatherByCoordinates(_ coordinates: (latitude:Double, longitude: Double), completion: @escaping ((Result<WeatherResponse,WeatherError>) -> Void))
     func getGeoCoordinates(name: String, completion: @escaping((Result<[City],WeatherError>) -> Void))
     
     func fetchWeather(name: String, completion: @escaping((Result<WeatherResponse,WeatherError>) -> Void))
     
-    func fetchWeatherIcon(imageName: String, completion: @escaping ((Result<UIImage,WeatherError>) -> Void))
 }
 
 class WeatherService: WeatherServiceProtocol {
@@ -81,20 +21,23 @@ class WeatherService: WeatherServiceProtocol {
     let apiKey = "d6ac97aefb928bedf0ba7d0937f92cda"
     let baseURL = "https://api.openweathermap.org"
     
-    func getWeatherByCoordinates(_ coordinates: Coordinates, completion: @escaping ((Result<WeatherResponse,WeatherError>) -> Void)) {
-        guard let weatherEndpoint = URL(string: "\(baseURL)/data/2.5/weather?lat=\(coordinates.latitude)&lon=\(coordinates.longitude)&appid=\(apiKey)")
+    //This should ideally live in user defaults so that user can switch this by preference, leaving it to save time
+    static var weatherUnits = TempatureUnit.imperial
+    
+    func getWeatherByCoordinates(_ coordinates: (latitude: Double, longitude: Double), completion: @escaping ((Result<WeatherResponse,WeatherError>) -> Void)) {
+        guard let weatherEndpoint = URL(string: "\(baseURL)/data/2.5/weather?lat=\(coordinates.latitude)&lon=\(coordinates.longitude)&appid=\(apiKey)&units=\(WeatherService.weatherUnits.rawValue)")
         else {
             completion(.failure(.invalidURL))
             return
         }
-                
-        let task = URLSession.shared.dataTask(with: weatherEndpoint) { data,_,error in
+        
+        URLSession.shared.dataTask(with: weatherEndpoint) { data,_,error in
             if error != nil {
                 completion(.failure(.generic))
             }
             
             guard let data = data else {
-                completion(.failure(.generic))
+                completion(.failure(.noData))
                 return
             }
             
@@ -106,24 +49,23 @@ class WeatherService: WeatherServiceProtocol {
                 completion(.failure(.parsingError))
             }
             
-        }
+        }.resume()
         
-        task.resume()
-                
     }
-
-
+    
+    
     func getGeoCoordinates(name: String, completion: @escaping((Result<[City],WeatherError>) -> Void)) {
         let urlString =  "\(baseURL)/geo/1.0/direct?q=\(name)&appid=\(apiKey)"
         guard let encodedUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-           let geoPathURL = URL(string: encodedUrlString) else {
+              let geoPathURL = URL(string: encodedUrlString) else {
             completion(.failure(.invalidURL))
             return
         }
         
-        let task = URLSession.shared.dataTask(with: geoPathURL) { data,_,error in
+        URLSession.shared.dataTask(with: geoPathURL) { data,_,error in
             if error != nil {
                 completion(.failure(.generic))
+                return
             }
             
             guard let data = data else {
@@ -135,14 +77,21 @@ class WeatherService: WeatherServiceProtocol {
             do {
                 let decoder = JSONDecoder()
                 let cities = try decoder.decode([City].self, from: data)
-                completion(.success(cities))
+                //Check if the city data exists, can return a custom error if needed
+                if cities.count > 0 {
+                    completion(.success(cities))
+                    
+                } else {
+                    print("There was no data for \(name)!")
+                    completion(.failure(.locationDNE))
+                }
+                
+                
+                
             } catch {
                 completion(.failure(.parsingError))
             }
-            
-        }
-        
-        task.resume()
+        }.resume()
         
     }
     
@@ -152,12 +101,17 @@ class WeatherService: WeatherServiceProtocol {
             case .failure(let error):
                 completion(.failure(error))
             case .success(let cities):
+                print("Fetching coordinates for these cities:")
+                for city in cities {
+                    print("\(city.name),\(city.state ?? "N/A")")
+                }
                 guard let firstCity = cities.first else {
+                    print("There was no firstCity!")
                     completion(.failure(.noData))
                     return
                 }
-                let coordinates = Coordinates(longitude: firstCity.lon, latitude: firstCity.lat)
-                self?.getWeatherByCoordinates(coordinates) { weatherResult in
+                
+                self?.getWeatherByCoordinates((latitude: firstCity.lat, longitude: firstCity.lon)) { weatherResult in
                     switch weatherResult {
                     case .failure(let er):
                         completion(.failure(er))
@@ -171,34 +125,6 @@ class WeatherService: WeatherServiceProtocol {
         
     }
     
-    func fetchWeatherIcon(imageName: String, completion: @escaping ((Result<UIImage,WeatherError>) -> Void)){
-        guard let imagePathURL = URL(string:"https://openweathermap.org/img/wn/\(imageName)@2x.png") else {
-            completion(.failure(.invalidURL))
-            return
-        }
-        
-        URLSession.shared.dataTask(with: imagePathURL) { data, _, error in
-            if error != nil {
-                completion(.failure(.generic))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(.noData))
-                return
-            }
-            
-            guard let weatherImage = UIImage(data: data) else {
-                completion(.failure(.generic))
-                return
-            }
-            
-            completion(.success(weatherImage))
-        }.resume()
-        
-    }
-    
-    
-    
     
 }
+
