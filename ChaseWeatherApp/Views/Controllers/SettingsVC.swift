@@ -12,9 +12,6 @@ class SettingsVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Settings"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }

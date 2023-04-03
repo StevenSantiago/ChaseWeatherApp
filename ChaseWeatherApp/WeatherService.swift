@@ -82,7 +82,6 @@ class WeatherService: WeatherServiceProtocol {
                     completion(.success(cities))
                     
                 } else {
-                    print("There was no data for \(name)!")
                     completion(.failure(.locationDNE))
                 }
                 
@@ -106,7 +105,6 @@ class WeatherService: WeatherServiceProtocol {
                     print("\(city.name),\(city.state ?? "N/A")")
                 }
                 guard let firstCity = cities.first else {
-                    print("There was no firstCity!")
                     completion(.failure(.noData))
                     return
                 }

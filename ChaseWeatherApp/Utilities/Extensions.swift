@@ -15,13 +15,10 @@ extension Double {
         
         switch unit {
         case .standard:
-            //Returns number with K symbol appended
             return temperatureValue + "K"
         case .imperial:
-            //Returns number with Fahrenheit symbol appended
             return temperatureValue + "°F"
         case .metric:
-            //Return number with Celsius symbol appended
             return temperatureValue + "°C"
         }
         

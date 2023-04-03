@@ -62,13 +62,12 @@ class HomeVC: UIViewController {
     
     private func setupCLLocation() {
         locationManager.delegate = self
-        locationManager.distanceFilter = 1000 // Update location only when user has moved 1000 meters
+        locationManager.distanceFilter = 1000 //Using this so the device doesnt update frequently, this is 1000 meters
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         //Check if user has granted permission
         switch locationManager.authorizationStatus {
         case .notDetermined, .denied:
-            print("About to load previously searched Weather!")
             weatherViewModel.loadPreviousSearchedWeather()
         default:
             print("Loaded current location weather!")
@@ -102,19 +101,17 @@ class HomeVC: UIViewController {
             self?.weatherView.isHidden = showView
         }
         
-
+        
     }
 }
 
 
 extension HomeVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("Retrieving weather for location!")
         guard let userInput = searchBar.text else {
             return
         }
         searchBar.resignFirstResponder()
-        print("City weather for \(userInput) being retrieved!")
         weatherViewModel.getWeatherFor(location: userInput)
         
     }
@@ -130,7 +127,6 @@ extension HomeVC: CLLocationManagerDelegate {
         let longitude = location.coordinate.longitude
         let latitude = location.coordinate.latitude
         let clLocation = CLLocation(latitude: latitude, longitude: longitude)
-        print("latitude: \(latitude), longitude: \(longitude)")
         weatherViewModel.getWeatherFor(location: clLocation)
     }
 }
